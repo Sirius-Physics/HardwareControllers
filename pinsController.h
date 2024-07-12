@@ -1,0 +1,15 @@
+#ifndef PINS_CONTROLLER_H
+#define PINS_CONTROLLER_H
+
+#define DIGITAL_INPUT_PIN_1 7
+#define DIGITAL_INPUT_PIN_2 8
+#define DIGITAL_INPUT_PIN_3 9
+
+#define DIGITAL_OUTPUT_PIN_1 10
+#define DIGITAL_OUTPUT_PIN_2 11
+
+#define ANALOG_PIN_1 A0
+
+void setPinsConfig();
+
+#endif

@@ -1,21 +1,16 @@
 #include "Arduino.h"
+#include "pinsController.h"
 #include "utils.h"
 
-const int digitalOutputPin2 = 10, digitalInputPin1 = 11;
 double lastDistance = 0.0, lastMRUATime = 0.0, lastSpeed = 0.0;
 
-void MRUAConfig() {
-  pinMode(digitalOutputPin2, OUTPUT);  // Configura el pin del trigger como salida
-  pinMode(digitalInputPin1, INPUT); // Configura el pin del echo como entrada
-} 
-
 void readDistance() {
-  digitalWrite(digitalOutputPin2, LOW);
+  digitalWrite(DIGITAL_OUTPUT_PIN_2, LOW);
   delayMicroseconds(2);
-  digitalWrite(digitalOutputPin2, HIGH);
+  digitalWrite(DIGITAL_OUTPUT_PIN_2, HIGH);
   delayMicroseconds(10);
-  digitalWrite(digitalInputPin1, LOW);
-  unsigned long duration = pulseIn(digitalInputPin1, HIGH);
+  digitalWrite(DIGITAL_INPUT_PIN_1, LOW);
+  unsigned long duration = pulseIn(DIGITAL_INPUT_PIN_1, HIGH);
   double distance = (duration * 0.0343) / 2;
 
   if (distance > 65.0 || distance < 2.0){

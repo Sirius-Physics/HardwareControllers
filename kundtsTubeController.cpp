@@ -1,7 +1,7 @@
 #include <Arduino.h>
+#include "pinsController.h"
 #include "utils.h"
 
-const int analogPin1 = A0;
 const unsigned long ktInterval = 1000000;
 int nodeValue, lastValue = 0;
 unsigned long ktFrecuency = 0, ktLastTime = 0;
@@ -14,14 +14,14 @@ void soundSensorCalibration(){
   int numMeasurements = 120, frecuencySum = 0;
   // Takes several initial measurements and calculates the average to use as a reference
   for(int i=0; i<numMeasurements; i++) {
-    frecuencySum += analogRead(analogPin1);
+    frecuencySum += analogRead(ANALOG_PIN_1);
     delay(10); // Small pause between readings
   }
   nodeValue = frecuencySum / numMeasurements; // Average value
 }
 
 void readFrecuencyLevels(){
-  int currentValue = analogRead(analogPin1);
+  int currentValue = analogRead(ANALOG_PIN_1);
   unsigned long currentTimeKD = micros();
 
   // Detect a node crossing

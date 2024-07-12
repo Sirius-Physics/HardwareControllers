@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include "utils.h"
-
-const int analogPin1 = A0;
+#include "pinsController.h"
 
 double thermister(int RawADC) {
   double Temp;
@@ -12,7 +11,7 @@ double thermister(int RawADC) {
 }
 
 void readTemperature() {
-  int val = analogRead(analogPin1);
+  int val = analogRead(ANALOG_PIN_1);
   int temp = thermister(val);
   unsigned long currentTime = getCurrentTime();
   createAndSerializeJson(

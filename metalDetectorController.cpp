@@ -1,13 +1,9 @@
 #include <Adafruit_VL53L0X.h>
 #include <FreqCount.h>
+#include "pinsController.h"
 #include "utils.h"
 
-const int digitalOutputPin1 = 10;
 int baseFrecuency = 0, frecuencyMD = 0, sensivityMD = 2;
-
-void metalDetectorConfig() {
-  pinMode(digitalOutputPin1, OUTPUT);  // Buzzer Dpin
-}
 
 void generateTone(int pin, int duration, int repetitions){
   for(int i=0; i<repetitions; i++) {
@@ -23,7 +19,7 @@ void detectMetal() {
   int difference = baseFrecuency - frecuencyMD;
   // Ferrous metal
   if(difference > sensivityMD){
-    generateTone(digitalOutputPin1, 2, 10);
+    generateTone(DIGITAL_OUTPUT_PIN_1, 2, 10);
     delay(40-(constrain(difference*5,10,40)));
     createAndSerializeJson(
       "MD", 
@@ -33,7 +29,7 @@ void detectMetal() {
   // Non-Ferrous metal
   else if(difference <- sensivityMD){
     difference = -difference;
-    generateTone(digitalOutputPin1, 1, 20);
+    generateTone(DIGITAL_OUTPUT_PIN_1, 1, 20);
     delay(40-(constrain(difference * 5, 10, 40)));
     createAndSerializeJson(
       "MD", 
@@ -49,7 +45,7 @@ void setupMD(){
   baseFrecuency = frecuencyMD;
 
   for(int i=0; i<5; i++){
-    generateTone(digitalOutputPin1, 2, 10);
+    generateTone(DIGITAL_OUTPUT_PIN_1, 2, 10);
     delay(20);
     frecuencyMD = FreqCount.read();
     if(frecuencyMD != baseFrecuency){
@@ -57,5 +53,5 @@ void setupMD(){
       i = 0;
     }
   }
-  generateTone(digitalOutputPin1, 1, 20);
+  generateTone(DIGITAL_OUTPUT_PIN_1, 1, 20);
 }

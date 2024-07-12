@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "utils.h"
+#include "pinsController.h"
 #include "interfaceController.h"
 #include "MRUAController.h"
 #include "magneticFieldController.h"
@@ -33,17 +34,12 @@ Experiment getExperiment(const String& str) {
 }
 
 void siriusInitConfig(){
-  // MRUA
-  MRUAConfig();
   // FREE FALL
   freeFallConfig();
-  // MAGNETIC FIELD: Nothing
-  // METAL DETECTOR
-  metalDetectorConfig();
   // KUNDT'S TUBE
-  kundtsTubeConfig();              // Inicial relative time
-  // THERMOMETER: Nothing
-  // GENERAL
+  kundtsTubeConfig();
+  // SYSTEM
+  setPinsConfig();
   lcdStartupConfig();
   Serial.println("SIRIUS STARTED"); // Software signal SIRIUS system inicialization
 }
